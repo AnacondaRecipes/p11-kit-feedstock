@@ -44,7 +44,11 @@ about:
   summary: Provides a way to load and enumerate PKCS#11 modules
 
 extra:
+  anaconda-services:
+    ref: https://anaconda.zendesk.com/agent/tickets/47182
+    reason: Dependency for systemd
   recipe-maintainers:
+    - ianaobi
     - chapmanb
     - marcelotrevisani
     - leofang
