@@ -1,47 +1,52 @@
-{% set version = "0.25.3" %}
-
+{% set name = "p11-kit" %}
+{% set version = "0.26.1" %}
 
 package:
-  name: p11-kit
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://github.com/p11-glue/p11-kit/releases/download/{{ version }}/p11-kit-{{ version }}.tar.xz
-  sha256: d8ddce1bb7e898986f9d250ccae7c09ce14d82f1009046d202a0eb1b428b2adc
+  url: https://github.com/p11-glue/{{ name }}/releases/download/{{ version }}/{{ name }}-{{ version }}.tar.xz
+  sha256: 4769f81483a28040cce1dac09a99599f787a8e0dc239a3089d4b0f676b7c4561
 
 build:
   number: 0
-  # Windows: libtasn1 not available
+  # The build is messed up for Windows
+  # Might get back later
   skip: true  # [win]
   run_exports:
     - {{ pin_subpackage('p11-kit', max_pin='x.x') }}
 
 requirements:
   build:
+    - {{ stdlib('c') }}
     - {{ compiler('c') }}
-    - make
-    - pkg-config
-    - gnuconfig  # [unix]
-    - autoconf   # [build_platform != target_platform]
-    - automake   # [build_platform != target_platform]
-    - libtool    # [build_platform != target_platform]
+    - meson
+    - ninja-base
+    - msys2-coreutils  # [win]
   host:
     - libffi
-    - libtasn1
+    - libtasn1         # [unix]
     - ca-certificates
   run:
     - libffi
-    - libtasn1
+    - libtasn1         # [unix]
 
 test:
   commands:
     - p11-kit -h
+    - p11-kit list-modules
+    - p11-kit print-config
 
 about:
   home: https://github.com/p11-glue/p11-kit
   license: MIT
+  license_family: MIT
   license_file: COPYING
   summary: Provides a way to load and enumerate PKCS#11 modules
+  description: Provides a way to load and enumerate PKCS#11 modules
+  doc_url: https://github.com/p11-glue/p11-kit
+  dev_url: https://github.com/p11-glue/p11-kit
 
 extra:
   recipe-maintainers:
