@@ -49,7 +49,11 @@ about:
   dev_url: https://github.com/p11-glue/p11-kit
 
 extra:
+  anaconda-services:
+    ref: https://anaconda.zendesk.com/agent/tickets/47182
+    reason: Dependency for systemd
   recipe-maintainers:
+    - ianaobi
     - chapmanb
     - marcelotrevisani
     - leofang
