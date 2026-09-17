@@ -2,7 +2,7 @@
 {% set version = "0.26.5" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
@@ -25,8 +25,8 @@ requirements:
     - ninja-base
     - msys2-coreutils  # [win]
   host:
-    - libffi
-    - libtasn1  # [unix]
+    - libffi {{ libffi }}
+    - libtasn1 {{ libtasn1 }} # [unix]
     - ca-certificates
   run:
     - libffi
